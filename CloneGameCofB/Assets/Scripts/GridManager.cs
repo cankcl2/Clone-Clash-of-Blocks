@@ -8,8 +8,8 @@ public class GridManager : MonoBehaviour
 
     int[,] grid = {
     {0,0,0,0,0,0,0},
+    {0,0,0,0,1,0,0},
     {0,0,0,0,0,0,0},
-    {0,0,0,0,0,1,0},
     {3,3,3,3,0,0,0},
     {3,3,3,3,0,0,0},
     {3,3,3,3,0,0,0},
@@ -20,32 +20,37 @@ public class GridManager : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(PlusDirections());
+    }
+    IEnumerator PlusDirections()
+    {
 
-        for (int i = 0; i < 9; i++)
+        while (true)
         {
-            for (int j = 0; j < 7; j++)
+            for (int i = 0; i < 9; i++)
             {
-                if (grid[i, j] == 1 && grid[i, j] != 3)
+                for (int j = 0; j < 7; j++)
                 {
-                    for (int z = 0; z<10; z++)
+                    if (grid[i, j] == 1)
                     {
+                        yield return new WaitForSeconds(0.25f);
                         Instantiate(_enemyPrefab, new Vector3(i * 10, 0, j * 10), Quaternion.identity);
-                        grid[i + 1, j] = 1;
-                        grid[--i, j] = 1;
-                        if (i > 8)
+                        if (i > 0 && i < 8 )
                         {
-                            i = 8;
+                            grid[i + 1, j] = 1;
                         }
-                        else if (j > 6)
-                        {
-                            j = 6;
+                        if(j > 0 && j < 6) 
+                        { 
+                            grid[i, j + 1] = 1;
                         }
-                        break;
+                        
+
                     }
                 }
             }
+            break;
+
         }
-
-
     }
+
 }
