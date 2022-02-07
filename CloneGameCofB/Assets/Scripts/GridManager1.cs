@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GridManager : MonoBehaviour
+public class GridManager1 : MonoBehaviour
 {
     public GameObject _enemyPrefab;
     public GameObject _playerPrefab;
@@ -13,22 +13,27 @@ public class GridManager : MonoBehaviour
     public Text winOrLose_Text;
     public Text playerPercent_Text;
     public Text enemy1Percent_Text;
+
     [SerializeField] bool isPlaceable;
+
     bool gameEnded = false;
     int enemyScore1 = 0;
     int playerScore = 0;
-    int totalGrids = 51;
+    int totalGrids = 144;
+
+    int gridRows = 12;
+    int gridCols = 12;
 
     int[,] grid = {
-    {0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0},
-    {0,0,0,0,0,1,0},
-    {3,3,3,3,0,0,0},
-    {3,3,3,3,0,0,0},
-    {3,3,3,3,0,0,0},
-    {0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0}
+    {0,0,0,0,0,0,0,0,0,0,0,0},
+    {0,0,0,0,0,1,0,0,0,0,0,0},
+    {0,0,0,3,3,3,3,3,3,0,0,0},
+    {0,0,0,3,3,3,3,3,3,0,0,0},
+    {0,0,0,3,3,3,3,3,3,0,0,0},
+    {0,0,0,3,3,3,3,3,3,0,0,0},
+    {0,0,0,0,0,0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0,0,0,0,0,0}
     };
 
     public bool gameStarted = false;
@@ -61,9 +66,9 @@ public class GridManager : MonoBehaviour
 
     private void WinCondition()
     {
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < gridRows; i++)
         {
-            for (int j = 0; j < 7; j++)
+            for (int j = 0; j < gridCols; j++)
             {
                 if (grid[i, j] == 1)
                 {
@@ -109,9 +114,9 @@ public class GridManager : MonoBehaviour
                 break;
             var newGrid = grid.Clone() as int[,];
 
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < gridRows; i++)
             {
-                for (int j = 0; j < 7; j++)
+                for (int j = 0; j < gridCols ; j++)
                 {
                     if (grid[i, j] == 2)
                     {
@@ -176,9 +181,9 @@ public class GridManager : MonoBehaviour
 
     private bool checkIfGridIsFull()
     {
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < gridRows; i++)
         {
-            for (int j = 0; j < 7; j++)
+            for (int j = 0; j < gridCols; j++)
             {
                 if (grid[i, j] == 0)
                 {
@@ -191,9 +196,9 @@ public class GridManager : MonoBehaviour
 
     private void InstantiateAll(int[,] grid)
     {
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < gridRows; i++)
         {
-            for (int j = 0; j < 7; j++)
+            for (int j = 0; j < gridCols; j++)
             {
                 if (grid[i, j] == 1)
                 {
@@ -208,10 +213,7 @@ public class GridManager : MonoBehaviour
 
     }
 
-    public void RestartGame()
-    {
-        SceneManager.LoadScene("Level7");
-    }
+    
 
 
 }
